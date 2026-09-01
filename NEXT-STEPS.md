@@ -3,7 +3,7 @@
 Status as of **1 September 2026**. The site is built, deployed to a staging URL, and the contact form
 is live. What remains is review, a hosting decision, and the DNS cutover.
 
-**Staging URL:** https://jim0425.github.io/embolization-inc-site/
+**Staging URL:** https://boulderbiomed.github.io/embolization-inc-site/
 **Live domain:** https://www.embolizationinc.com — still served by the *old* site. Untouched.
 
 Nothing here is urgent-broken. The old site stays up until someone deliberately switches DNS.
@@ -73,7 +73,7 @@ company email. Only the `www` and apex records need to move.
    ```
    www.embolizationinc.com
    ```
-2. In Cloudflare, change the `www` record to `CNAME → jim0425.github.io`.
+2. In Cloudflare, change the `www` record to `CNAME → boulderbiomed.github.io`.
 3. For the apex (`embolizationinc.com`), point A records at the GitHub Pages addresses:
    `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
 4. Set those records to **DNS only** (grey cloud, not orange) at first — Cloudflare's proxy can block
@@ -115,9 +115,17 @@ pre-filled `mailto:` link rather than silently dropping the submission.
 
 ## 5. Worth raising with Jim
 
-This site currently lives in a personal GitHub account (`jim0425`). Embolization Inc is its own
-company, and the reason this rebuild was necessary in the first place is that the previous site
-existed in exactly one person's vendor account with no copy anywhere else.
+This repo now lives under the **`BoulderBioMed`** account, alongside the other Boulder sites — good.
+One structural thing is still open.
 
-Moving the repo to an organization owned by Embolization Inc — rather than an individual — would mean
-it survives any one person losing access. That's a decision for Jim, not a technical task.
+`BoulderBioMed` is a GitHub **user account**, not an organization. That means a single shared login
+and password rather than individual accounts, no per-person roles, and no way to remove one person's
+access without changing it for everyone. It also means collaborators on its repos can only be granted
+write — GitHub has no admin role on user-owned repositories.
+
+Converting it to a real organization is free and keeps every repo and the name. Afterwards each person
+signs in as themselves as a member of the org, access is granted and revoked per person, and there is
+no shared password to circulate.
+
+That matters here specifically: this rebuild was necessary because the previous site existed inside
+one vendor account that nobody could recover. A shared login is the same shape of risk.
