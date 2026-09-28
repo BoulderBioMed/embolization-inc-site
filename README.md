@@ -92,7 +92,8 @@ until genuine study imagery exists.
 
 Pushing to `main` deploys automatically to Cloudflare Workers (project `embolization-inc-site`), which
 serves `www.embolizationinc.com`. `_headers` sets long cache lifetimes on `/assets` and basic security
-headers. `vercel.json` is unused.
+headers. `vercel.json` is unused. `.assetsignore` lists repo files (these docs, config) that Cloudflare
+does not publish on the website — add to it if you add another non-site file at the root.
 
 The domain is registered at Squarespace Domains with DNS on Cloudflare. The bare domain redirects to
 `www` through a Cloudflare Redirect Rule — see [NEXT-STEPS.md](NEXT-STEPS.md) for the DNS details.

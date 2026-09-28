@@ -1,0 +1,7 @@
+# Repo files that Cloudflare should not publish on the website.
+# Same syntax as .gitignore. Anything not listed here is served.
+.assetsignore
+.gitignore
+README.md
+NEXT-STEPS.md
+vercel.json
