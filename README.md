@@ -103,5 +103,8 @@ The domain is registered at Squarespace Domains with DNS on Cloudflare. Repointi
 - No build step and no framework. Keep it that way.
 - One page. Sections are `<section id="…">`; the nav uses anchors.
 - Colours, spacing and fonts are CSS custom properties at the top of `styles.css`.
+- Files in `assets/` are cached by browsers for a year. After editing `styles.css` or `main.js`,
+  bump the `?v=` number on its link near the top (CSS) or bottom (JS) of `index.html`, or returning
+  visitors keep the old file.
 - Every image needs a real `alt` description and explicit `width`/`height`.
 - `prefers-reduced-motion` is respected — animations and counters are skipped.
