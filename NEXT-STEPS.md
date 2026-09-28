@@ -1,22 +1,59 @@
-# Handoff — what's left to do
+# Handoff — where things stand
 
-Status as of **1 September 2026**. The site is built, deployed to a staging URL, and the contact form
-is live. What remains is review, a hosting decision, and the DNS cutover.
-
-**Staging URL:** https://boulderbiomed.github.io/embolization-inc-site/
-**Live domain:** https://www.embolizationinc.com — still served by the *old* site. Untouched.
-
-Nothing here is urgent-broken. The old site stays up until someone deliberately switches DNS.
+Status as of **28 September 2026**. The site is live at https://www.embolizationinc.com, deploys
+automatically from this repo, and the bare domain redirects to it. What remains is content review and
+a couple of checks.
 
 ---
 
-## 1. Review the content
+## 1. How the site is hosted
+
+| | |
+|---|---|
+| Host | **Cloudflare Workers** — project `embolization-inc-site` |
+| Deploys | Automatically on every push to `main`. Usually live within a minute; allow up to ~10. The build status shows as a check on each commit in GitHub. |
+| Headers | `_headers` at the repo root (asset caching, security headers). `vercel.json` is unused — left over from an earlier hosting option. |
+| Staging copy | GitHub Pages also builds from `main`: https://boulderbiomed.github.io/embolization-inc-site/ |
+
+**To make an edit:** change the files, commit, push to `main`, then check the live site.
+
+**Caching:** files in `assets/` are cached by browsers for a year. After editing `styles.css` or
+`main.js`, bump the `?v=` number on its link in `index.html`, or returning visitors keep the old file.
+
+---
+
+## 2. Domain and DNS
+
+| | |
+|---|---|
+| Registrar | Squarespace Domains |
+| DNS | **Cloudflare** (zone `embolizationinc.com`) |
+| `www` | Worker record → `embolization-inc-site` (proxied). This is the live site. |
+| `embolizationinc.com` (bare) | A record `192.0.2.1`, **proxied** — a placeholder only. A Redirect Rule named **"Root to www"** sends every request to `https://www.embolizationinc.com/…` (301, path and query string kept). |
+| Mail | Microsoft 365 — MX, `v=spf1` TXT and `autodiscover` CNAME |
+
+⚠️ **Never edit or delete the MX, `v=spf1` TXT or `autodiscover` records.** Changing them breaks
+company email.
+
+The bare-domain redirect only works while its A record stays **proxied** (orange cloud). If it is set
+to DNS only, the redirect rule stops applying.
+
+### History and rollback
+
+The previous site was built on Manus. Until 28 September 2026 the bare domain still pointed at it via
+two DNS-only A records, `104.18.27.246` and `104.18.26.246`. Nothing points at Manus any more, so
+that site can be retired. Restoring those two records (DNS only) would bring it back on the bare
+domain, if ever needed.
+
+---
+
+## 3. Review the content
 
 The copy came across from the previous site. The clinical figures and the artifact measurement table
 are new — they're the real measured data from the CT Imaging Comparison Report (TR 005017 / VP 004731),
 and each caption states its actual artifact width and scan configuration.
 
-Worth a careful read before go-live:
+Worth a careful read:
 
 - **The measurement table** in the "Metal Coils Blind Your Follow-Up Imaging" section. Check the
   numbers against the source report.
@@ -36,71 +73,14 @@ Worth a careful read before go-live:
 
 ---
 
-## 2. Decide where it's hosted
-
-It's a static site — plain HTML, CSS and JS with no build step — so it runs anywhere.
-
-**Currently:** GitHub Pages, serving from `main` at the repo root. Free, already working, zero config.
-
-**Alternative — Vercel.** `vercel.json` is already in the repo (asset caching, clean URLs, security
-headers). Import the repo at vercel.com and it deploys on every push. Note: the Vercel connector was
-unable to create projects under Jim's teams — a permissions issue on the Vercel account that needs
-sorting first if you go this route.
-
-Either is fine. GitHub Pages is already working, so the lower-effort path is to leave it.
-
----
-
-## 3. The DNS cutover
-
-This is the actual go-live step, and the only one that changes what the public sees.
-
-**Where things live:**
-
-| | |
-|---|---|
-| Registrar | Squarespace Domains |
-| DNS | **Cloudflare** — this is where the change happens |
-| Current `www` record | `CNAME → cname.manus.space` |
-| Mail | Microsoft 365 — **do not touch the MX or TXT/SPF records** |
-
-⚠️ **Leave the MX record and the `v=spf1` TXT record exactly as they are.** Changing them breaks
-company email. Only the `www` and apex records need to move.
-
-### If staying on GitHub Pages
-
-1. Add a file named `CNAME` at the repo root containing exactly:
-   ```
-   www.embolizationinc.com
-   ```
-2. In Cloudflare, change the `www` record to `CNAME → boulderbiomed.github.io`.
-3. For the apex (`embolizationinc.com`), point A records at the GitHub Pages addresses:
-   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-4. Set those records to **DNS only** (grey cloud, not orange) at first — Cloudflare's proxy can block
-   GitHub's certificate issuance. Once HTTPS is working, proxying can be turned back on.
-5. In the repo's Settings → Pages, set the custom domain and tick "Enforce HTTPS" once the
-   certificate is issued. It can take up to an hour.
-
-### If moving to Vercel
-
-Add the domain in the Vercel project settings and follow the records it gives you — usually
-`CNAME → cname.vercel-dns.com` for `www`. Vercel handles the certificate.
-
-### Rollback
-
-The old site is still published on Manus. If anything goes wrong, set the `www` record back to
-`CNAME → cname.manus.space` and it returns.
-
----
-
 ## 4. Confirm the contact form is delivering
 
-The form posts to FormSubmit, which was activated on 1 September 2026. It should now deliver to
+The form posts to FormSubmit, which was activated on 1 September 2026, and should deliver to
 `inquire@embolizationinc.com`.
 
-**Please verify it end to end:** submit the form on the staging URL with your own email in the message,
-and confirm the email arrives at `inquire@embolizationinc.com`. Do this again after the DNS cutover,
-since the sending domain changes.
+**Still to do:** submit the form on https://www.embolizationinc.com with your own email in the message,
+and confirm it arrives at `inquire@embolizationinc.com`. It was only tested on the staging URL before
+the site went live.
 
 The endpoint is one constant at the top of `assets/js/main.js`:
 
@@ -115,7 +95,7 @@ pre-filled `mailto:` link rather than silently dropping the submission.
 
 ## 5. Worth raising with Jim
 
-This repo now lives under the **`BoulderBioMed`** account, alongside the other Boulder sites — good.
+This repo lives under the **`BoulderBioMed`** account, alongside the other Boulder sites — good.
 One structural thing is still open.
 
 `BoulderBioMed` is a GitHub **user account**, not an organization. That means a single shared login

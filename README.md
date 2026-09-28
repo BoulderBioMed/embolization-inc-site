@@ -6,8 +6,8 @@ step, no dev server. Open `index.html` in a browser and it works.
 Keeping it that way is a deliberate choice: the site should be openable, editable and recoverable by
 anyone with the repo, without a toolchain or a vendor account.
 
-**Picking this up for the first time? Start with [NEXT-STEPS.md](NEXT-STEPS.md)** — what's done, what's
-left, and how the DNS cutover works.
+**Picking this up for the first time? Start with [NEXT-STEPS.md](NEXT-STEPS.md)** — how it's hosted,
+how the domain is set up, and what's left.
 
 ---
 
@@ -90,11 +90,12 @@ until genuine study imagery exists.
 
 ## Deploying
 
-The site is static, so any host works. `vercel.json` sets long cache lifetimes on `/assets`, clean
-URLs, and basic security headers for Vercel deployments.
+Pushing to `main` deploys automatically to Cloudflare Workers (project `embolization-inc-site`), which
+serves `www.embolizationinc.com`. `_headers` sets long cache lifetimes on `/assets` and basic security
+headers. `vercel.json` is unused.
 
-The domain is registered at Squarespace Domains with DNS on Cloudflare. Repointing
-`www.embolizationinc.com` means changing the `www` record in Cloudflare.
+The domain is registered at Squarespace Domains with DNS on Cloudflare. The bare domain redirects to
+`www` through a Cloudflare Redirect Rule — see [NEXT-STEPS.md](NEXT-STEPS.md) for the DNS details.
 
 ---
 
