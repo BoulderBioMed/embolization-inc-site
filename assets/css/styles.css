@@ -109,6 +109,17 @@ h1{font-size:clamp(42px,6.6vw,76px)}
 h1 .accent{background:linear-gradient(100deg,var(--teal),var(--blue));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p.lede{margin-top:24px}
+.event-banner{
+  display:inline-flex;align-items:center;gap:10px;margin-top:22px;
+  font-family:var(--display);font-size:15px;font-weight:500;color:var(--text);
+  background:linear-gradient(100deg,rgba(0,229,160,.14),rgba(0,180,216,.14));
+  border:1px solid rgba(0,229,160,.35);border-radius:12px;padding:11px 16px;line-height:1.35
+}
+.event-banner svg{color:var(--teal);flex:none}
+.event-banner b{font-weight:700}
+.event-banner .nw{white-space:nowrap}
+.event-banner .sep{color:var(--text-3);margin:0 2px}
+.event-banner:hover{text-decoration:none;border-color:var(--teal);background:linear-gradient(100deg,rgba(0,229,160,.2),rgba(0,180,216,.2))}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
 
 .hero-fig{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;overflow:hidden}
