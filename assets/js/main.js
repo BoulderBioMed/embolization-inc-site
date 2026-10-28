@@ -136,8 +136,8 @@ var FALLBACK_EMAIL = 'inquire@embolizationinc.com';
         form.innerHTML =
           '<div style="text-align:center;padding:34px 10px">' +
           '<div style="width:56px;height:56px;margin:0 auto 20px;border-radius:50%;' +
-          'background:rgba(0,229,160,.13);border:1px solid rgba(0,229,160,.4);display:grid;place-items:center">' +
-          '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2.6" ' +
+          'background:rgba(0,163,224,.13);border:1px solid rgba(0,163,224,.4);display:grid;place-items:center">' +
+          '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00A3E0" stroke-width="2.6" ' +
           'stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
           '<h3 style="font-size:21px;margin-bottom:10px">Request received</h3>' +
           '<p style="color:rgba(234,242,248,.72);margin:0">Thank you. Our team will be in touch shortly at ' +
