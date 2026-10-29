@@ -28,7 +28,7 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:var(--teal);text-decoration:none}
 a:hover{text-decoration:underline}
 h1,h2,h3,h4{font-family:var(--display);font-weight:800;line-height:1.12;margin:0;letter-spacing:-.02em}
@@ -162,6 +162,12 @@ figure.evidence figcaption{padding:16px 20px;font-size:14.5px;color:var(--text-2
 figure.evidence figcaption b{color:var(--text);font-family:var(--display)}
 .fig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:40px}
 .fig-lead{margin-top:40px}
+.text-fig{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:start;margin-top:28px}
+.text-fig .lede{margin-top:0}
+.fig-note{margin:22px 0 0;padding-left:16px;border-left:2px solid var(--teal);font-size:15.5px;color:var(--text-2);line-height:1.65}
+.fig-note b{color:var(--text);font-family:var(--display)}
+.text-fig figure.evidence{margin:0}
+@media(max-width:900px){.text-fig{grid-template-columns:1fr}.text-fig figure.evidence{margin-top:8px}}
 
 .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
 @media(max-width:820px){.split{grid-template-columns:1fr}}
